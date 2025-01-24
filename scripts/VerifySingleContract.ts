@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { contractName } from '../build/contracts/DolomiteMargin.json';
+import { contractName } from '../build/contracts/PartiallyDelayedMultiSig.json';
 import deployed from '../migrations/deployed.json';
 import getConstructorArgsByContractName from './getConstructorArgsByContractName';
 

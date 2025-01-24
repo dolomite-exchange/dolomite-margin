@@ -1,6 +1,6 @@
 {
   "name": "@dolomite-exchange/dolomite-margin",
-  "version": "0.13.1",
+  "version": "0.14.0",
   "description": "Ethereum Smart Contracts and TypeScript library used for the DolomiteMargin trading protocol",
   "engines": {
     "npm": "6.14.x"
@@ -55,6 +55,7 @@
     "deploy_arbitrum_one": "NETWORK=arbitrum_one npm run deploy",
     "deploy_base": "NETWORK=base npm run deploy",
     "deploy_base_sepolia": "NETWORK=base_sepolia npm run deploy",
+    "deploy_berachain": "NETWORK=berachain npm run deploy",
     "deploy_berachain_bartio": "NETWORK=berachain_bartio npm run deploy",
     "deploy_berachain_cartio": "NETWORK=berachain_cartio npm run deploy",
     "deploy_ink": "NETWORK=ink npm run deploy",

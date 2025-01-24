@@ -6,6 +6,7 @@ const {
   isBaseNetwork,
   isMantleNetwork,
   isXLayerNetwork,
+  isBerachain,
   isBeraCartio,
 } = require('./helpers');
 
@@ -102,7 +103,9 @@ function getWethAddress(network, WETH) {
 
 function getWrappedCurrencyAddress(network, WETH) {
   // If a network we deploy to uses a different base currency...
-  if (isBeraCartio(network)) {
+  if (isBerachain(network)) {
+    return '0x6969696969696969696969696969696969696969'; // wBERA
+  } else if (isBeraCartio(network)) {
     return '0x7507c1dc16935B82698e4C63f2746A2fCf994dF8'; // wBERA
   } else if (isMantleNetwork(network)) {
     return '0x78c1b0C915c4FAA5FffA6CAbf0219DA63d7f4cb8'; // wMNT

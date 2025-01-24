@@ -42,7 +42,7 @@ function isPolygonZkEvmNetwork(network) {
 }
 
 function isBeraNetwork(network) {
-  return isBeraBartio(network) || isBeraCartio(network);
+  return isBerachain(network) || isBeraBartio(network) || isBeraCartio(network);
 }
 
 function isMantleNetwork(network) {
@@ -72,6 +72,11 @@ function isBase(network) {
 function isEthereumMainnet(network) {
   verifyNetwork(network);
   return network === 'mainnet';
+}
+
+function isBerachain(network) {
+  verifyNetwork(network);
+  return network === 'berachain';
 }
 
 function isBeraBartio(network) {
@@ -125,6 +130,9 @@ function getChainId(network) {
   }
   if (isBase(network)) {
     return 8453;
+  }
+  if (isBerachain(network)) {
+    return 80094;
   }
   if (isBeraBartio(network)) {
     return 80084;

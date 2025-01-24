@@ -16,7 +16,12 @@ async function verifyAll(): Promise<void> {
 
   for (let i = 0; i < keys.length; i += 1) {
     const contract = deployed[keys[i]][networkId];
-    if (contract && contract.address && !keys[i].toLowerCase().includes('AmmRebalancer'.toLowerCase())) {
+    if (
+      contract &&
+      contract.address &&
+      !keys[i].toLowerCase().includes('AmmRebalancer'.toLowerCase()) &&
+      keys[i] > 'SignedOperationProxy'
+    ) {
       try {
         const contractName = contract.contractName ?? keys[i];
         const constructorArgs = await getConstructorArgsByContractName(contractName, provider, networkId);

@@ -157,9 +157,9 @@ module.exports = {
       deploymentPollingInterval: pollingInterval,
       disableConfirmationListener: true,
       verify: {
-        apiUrl: 'https://api.routescan.io/v2/network/mainnet/evm/80094/etherscan/api',
+        apiUrl: 'https://api.berascan.com/api',
         apiKey: process.env.BERACHAIN_API_KEY,
-        explorerUrl: 'https://80094.routescan.io/address/',
+        explorerUrl: 'https://berscan.com/address/',
       },
     },
     berachain_bartio: {

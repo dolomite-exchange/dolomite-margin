@@ -20,7 +20,7 @@ async function verifyAll(): Promise<void> {
       contract &&
       contract.address &&
       !keys[i].toLowerCase().includes('AmmRebalancer'.toLowerCase()) &&
-      keys[i] > 'SignedOperationProxy'
+      keys[i] > '' // Used to skip contracts if needed
     ) {
       try {
         const contractName = contract.contractName ?? keys[i];

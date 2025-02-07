@@ -53,7 +53,8 @@ interface IGenericTraderProxyBase {
 
     // ============ Structs ============
 
-    struct TraderParam {
+    struct
+    TraderParam {
         /// @dev The type of trade to conduct
         TraderType traderType;
         /// @dev    The index into the `_makerAccounts` array of the maker account to trade with. Should be set to 0 if

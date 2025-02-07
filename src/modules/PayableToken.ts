@@ -18,6 +18,9 @@ export class PayableToken {
     this.contracts = contracts;
     this.token = token;
     this.payableToken = contracts.payableToken;
+    if (!contracts.payableToken.options.address) {
+      throw new Error('No payable token found!');
+    }
   }
 
   public get address(): string {

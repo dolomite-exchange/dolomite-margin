@@ -53,11 +53,12 @@ export const MarketId = {
 };
 
 export enum Networks {
-  X_LAYER = 196,
+  ARBITRUM_ONE = 42161,
+  BASE = 8453,
+  BERACHAIN = 80094,
   MANTLE = 5000,
   POLYGON_ZK_EVM = 1101,
-  BASE = 8453,
-  ARBITRUM_ONE = 42161,
+  X_LAYER = 196,
 }
 
 export enum ProxyType {

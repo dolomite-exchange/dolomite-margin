@@ -1786,28 +1786,34 @@
     },
     "WETH": {
         "196": {
-            "contractName": "IWETH",
             "links": {},
             "address": "0xe538905cf8410324e03A5A23C1c177a474D59b2b",
             "transactionHash": "0xc9f95245c86db5de2a88eef4bd8bc4d00a09e2a7eb926fdc66a4600d03b8dc49"
         },
         "1101": {
-            "contractName": "IWETH",
             "links": {},
             "address": "0x4F9A0e7FD2Bf6067db6994CF12E4495Df938E6e9",
             "transactionHash": "0xe7be579c571fab4cf4df2a8be5867bd28242420d1e7dc1a0430817608e9b83f4"
         },
         "5000": {
-            "contractName": "IWETH",
             "links": {},
             "address": "0x78c1b0C915c4FAA5FffA6CAbf0219DA63d7f4cb8",
             "transactionHash": "0xd49ba38d08e61e156bdad4caa3f42c7df850f0cd2c0a357cc56fffacb0a0944b"
         },
+        "8453": {
+            "links": {},
+            "address": "0x4200000000000000000000000000000000000006",
+            "transactionHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
         "42161": {
-            "contractName": "IWETH",
             "links": {},
             "address": "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1",
             "transactionHash": "0x1555f3be9c09cf5bf802109366853cfda812e7a177e755aeb8d9566c5728747e"
+        },
+        "80094": {
+            "links": {},
+            "address": "0x6969696969696969696969696969696969696969",
+            "transactionHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
         }
     },
     "WithdrawalImpl": {

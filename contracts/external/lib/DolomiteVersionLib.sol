@@ -71,14 +71,14 @@ library DolomiteVersionLib {
         Monetary.Price memory owedPriceAdj
     ) {
         if (_chainId == ARBITRUM_ONE) {
-            (heldPrice, owedPriceAdj) = _expiry.getLiquidationSpreadAdjustedPrices(
-                _liquidAccount,
+            (heldPrice, owedPriceAdj) = _expiry.getSpreadAdjustedPrices(
                 _heldMarketId,
                 _owedMarketId,
                 _expiration
             );
         } else {
-            (heldPrice, owedPriceAdj) = _expiry.getSpreadAdjustedPrices(
+            (heldPrice, owedPriceAdj) = _expiry.getLiquidationSpreadAdjustedPrices(
+                _liquidAccount,
                 _heldMarketId,
                 _owedMarketId,
                 _expiration

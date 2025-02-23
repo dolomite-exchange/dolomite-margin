@@ -17,11 +17,12 @@ import {
   Networks,
   RiskLimits,
   RiskParams,
-  TotalPar,
+  TotalPar, TotalWei,
   Values,
 } from '../types';
 import { AccountRiskOverrideSetter } from './AccountRiskOverrideSetter';
 import { OracleSentinel } from './OracleSentinel';
+import { ADDRESSES, INTEGERS } from '../lib/Constants';
 
 export class Getters {
   private contracts: Contracts;
@@ -131,6 +132,10 @@ export class Getters {
   }
 
   public async getOracleSentinel(options?: ContractConstantCallOptions): Promise<OracleSentinel> {
+    if (this.contracts.getNetworkId() === Networks.ARBITRUM_ONE) {
+      return Promise.resolve(new OracleSentinel(this.contracts, ADDRESSES.ZERO));
+    }
+
     const oracleSentinelAddress = await this.contracts.callConstantContractFunction(
       this.contracts.dolomiteMargin.methods.getOracleSentinel(),
       options,
@@ -139,6 +144,10 @@ export class Getters {
   }
 
   public async getIsBorrowAllowed(options?: ContractConstantCallOptions): Promise<boolean> {
+    if (this.contracts.getNetworkId() === Networks.ARBITRUM_ONE) {
+      return Promise.resolve(true);
+    }
+
     return this.contracts.callConstantContractFunction(
       this.contracts.dolomiteMargin.methods.getIsBorrowAllowed(),
       options,
@@ -146,6 +155,10 @@ export class Getters {
   }
 
   public async getIsLiquidationAllowed(options?: ContractConstantCallOptions): Promise<boolean> {
+    if (this.contracts.getNetworkId() === Networks.ARBITRUM_ONE) {
+      return Promise.resolve(true);
+    }
+
     return this.contracts.callConstantContractFunction(
       this.contracts.dolomiteMargin.methods.getIsLiquidationAllowed(),
       options,
@@ -153,6 +166,10 @@ export class Getters {
   }
 
   public async getCallbackGasLimit(options?: ContractConstantCallOptions): Promise<Integer> {
+    if (this.contracts.getNetworkId() === Networks.ARBITRUM_ONE) {
+      return Promise.resolve(INTEGERS.ZERO);
+    }
+
     const value = await this.contracts.callConstantContractFunction(
       this.contracts.dolomiteMargin.methods.getCallbackGasLimit(),
       options,
@@ -163,6 +180,10 @@ export class Getters {
   public async getDefaultAccountRiskOverrideSetter(
     options?: ContractConstantCallOptions,
   ): Promise<AccountRiskOverrideSetter> {
+    if (this.contracts.getNetworkId() === Networks.ARBITRUM_ONE) {
+      return Promise.resolve(new AccountRiskOverrideSetter(this.contracts, ADDRESSES.ZERO));
+    }
+
     const accountRiskOverrideSetterAddress = await this.contracts.callConstantContractFunction(
       this.contracts.dolomiteMargin.methods.getDefaultAccountRiskOverrideSetter(),
       options,
@@ -174,6 +195,10 @@ export class Getters {
     accountOwner: address,
     options?: ContractConstantCallOptions,
   ): Promise<AccountRiskOverrideSetter> {
+    if (this.contracts.getNetworkId() === Networks.ARBITRUM_ONE) {
+      return Promise.resolve(new AccountRiskOverrideSetter(this.contracts, ADDRESSES.ZERO));
+    }
+
     const accountRiskOverrideSetterAddress = await this.contracts.callConstantContractFunction(
       this.contracts.dolomiteMargin.methods.getAccountRiskOverrideSetterByAccountOwner(accountOwner),
       options,
@@ -185,6 +210,13 @@ export class Getters {
     account: AccountInfo,
     options?: ContractConstantCallOptions,
   ): Promise<{ marginRatioOverride: Decimal; liquidationSpreadOverride: Decimal }> {
+    if (this.contracts.getNetworkId() === Networks.ARBITRUM_ONE) {
+      return Promise.resolve({
+        marginRatioOverride: INTEGERS.ZERO,
+        liquidationSpreadOverride: INTEGERS.ZERO,
+      });
+    }
+
     const { marginRatioOverride, liquidationSpreadOverride } = await this.contracts.callConstantContractFunction(
       this.contracts.dolomiteMargin.methods.getAccountRiskOverrideByAccount(account),
       options,
@@ -199,6 +231,10 @@ export class Getters {
     account: AccountInfo,
     options?: ContractConstantCallOptions,
   ): Promise<Decimal> {
+    if (this.contracts.getNetworkId() === Networks.ARBITRUM_ONE) {
+      return Promise.resolve(INTEGERS.ZERO);
+    }
+
     const marginRatioOverride = await this.contracts.callConstantContractFunction(
       this.contracts.dolomiteMargin.methods.getMarginRatioOverrideByAccount(account),
       options,
@@ -210,6 +246,10 @@ export class Getters {
     account: AccountInfo,
     options?: ContractConstantCallOptions,
   ): Promise<Decimal> {
+    if (this.contracts.getNetworkId() === Networks.ARBITRUM_ONE) {
+      return Promise.resolve(INTEGERS.ZERO);
+    }
+
     const liquidationSpreadOverride = await this.contracts.callConstantContractFunction(
       this.contracts.dolomiteMargin.methods.getLiquidationSpreadOverrideByAccount(account),
       options,
@@ -313,14 +353,12 @@ export class Getters {
     };
   }
 
-  public async getMarketTotalWei(marketId: Integer, options?: ContractConstantCallOptions): Promise<TotalPar> {
-    const result = await this.contracts.callConstantContractFunction(
-      this.contracts.dolomiteMargin.methods.getMarketTotalWei(marketId.toFixed(0)),
-      options,
-    );
+  public async getMarketTotalWei(marketId: Integer, options?: ContractConstantCallOptions): Promise<TotalWei> {
+    const result = await this.getMarketTotalPar(marketId, options);
+    const index = await this.getMarketCurrentIndex(marketId, options);
     return {
-      borrow: new BigNumber(result[0]),
-      supply: new BigNumber(result[1]),
+      borrow: result.borrow.times(index.borrow),
+      supply: result.supply.times(index.supply),
     };
   }
 
@@ -377,6 +415,10 @@ export class Getters {
     marketId: Integer,
     options?: ContractConstantCallOptions,
   ): Promise<Decimal> {
+    if (this.contracts.getNetworkId() === Networks.ARBITRUM_ONE) {
+      return this.getMarketSpreadPremium(marketId, options);
+    }
+
     const spreadPremium = await this.contracts.callConstantContractFunction(
       this.contracts.dolomiteMargin.methods.getMarketLiquidationSpreadPremium(marketId.toFixed(0)),
       options,
@@ -396,6 +438,10 @@ export class Getters {
   }
 
   public async getMarketMaxSupplyWei(marketId: Integer, options?: ContractConstantCallOptions): Promise<Integer> {
+    if (this.contracts.getNetworkId() === Networks.ARBITRUM_ONE) {
+      return this.getMarketMaxWei(marketId, options);
+    }
+
     const maxSupplyWei = await this.contracts.callConstantContractFunction(
       this.contracts.dolomiteMargin.methods.getMarketMaxSupplyWei(marketId.toFixed(0)),
       options,
@@ -404,6 +450,10 @@ export class Getters {
   }
 
   public async getMarketMaxBorrowWei(marketId: Integer, options?: ContractConstantCallOptions): Promise<Integer> {
+    if (this.contracts.getNetworkId() === Networks.ARBITRUM_ONE) {
+      return Promise.resolve(INTEGERS.ZERO);
+    }
+
     const maxBorrowWei = await this.contracts.callConstantContractFunction(
       this.contracts.dolomiteMargin.methods.getMarketMaxBorrowWei(marketId.toFixed(0)),
       options,
@@ -415,6 +465,10 @@ export class Getters {
     marketId: Integer,
     options?: ContractConstantCallOptions,
   ): Promise<Integer> {
+    if (this.contracts.getNetworkId() === Networks.ARBITRUM_ONE) {
+      return Promise.resolve(INTEGERS.ZERO);
+    }
+
     const earningsRateOverride = await this.contracts.callConstantContractFunction(
       this.contracts.dolomiteMargin.methods.getMarketEarningsRateOverride(marketId.toFixed(0)),
       options,
@@ -423,10 +477,8 @@ export class Getters {
   }
 
   public async getMarketUtilization(marketId: Integer, options?: ContractConstantCallOptions): Promise<Decimal> {
-    const market = await this.getMarket(marketId, options);
-    const totalSupply: Decimal = market.totalPar.supply.times(market.index.supply);
-    const totalBorrow: Decimal = market.totalPar.borrow.times(market.index.borrow);
-    return totalBorrow.div(totalSupply);
+    const totalWei = await this.getMarketTotalWei(marketId, options);
+    return totalWei.borrow.div(totalWei.supply);
   }
 
   /**

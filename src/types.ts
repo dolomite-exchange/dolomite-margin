@@ -299,6 +299,11 @@ export interface TotalPar {
   supply: Integer;
 }
 
+export interface TotalWei {
+  borrow: Integer;
+  supply: Integer;
+}
+
 export interface Market {
   token: address;
   totalPar: TotalPar;

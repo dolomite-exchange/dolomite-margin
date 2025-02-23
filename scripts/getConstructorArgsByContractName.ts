@@ -16,6 +16,9 @@ export default async function getConstructorArgsByContractName(
   const input = (await dolomiteMargin.web3.eth.getTransaction(transactionHash)).input;
   const artifactPath = path.resolve('build', 'contracts', `${contractName}.json`);
   const artifact = JSON.parse(readFileSync(artifactPath).toString());
-  const constructorArgs = input.substring(DEPLOY_FUNCTION_PARAMS_LENGTH + artifact.bytecode.length);
+  const skipCreate3Deployer = contractName === 'PartiallyDelayedMultiSig';
+  const constructorArgs = input.substring(
+    (skipCreate3Deployer ? 0 : DEPLOY_FUNCTION_PARAMS_LENGTH) + artifact.bytecode.length,
+  );
   return constructorArgs.substring(0, Math.floor(constructorArgs.length / 64) * 64);
 }

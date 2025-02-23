@@ -22,9 +22,10 @@ async function verifySingleContract(): Promise<void> {
   console.log('Verification Data:', process.env.NETWORK, networkId, contractName);
 
   const contractAddress = deployed[contractName]?.[networkId]?.address;
-  const constructorArgs = await getConstructorArgsByContractName(contractName, provider, networkId);
+  const args = await getConstructorArgsByContractName(contractName, provider, networkId);
+  const constructorParam = `--forceConstructorArgs string:${args}`;
   execSync(
-    `truffle run verify --forceConstructorArgs string:${constructorArgs} --network ${process.env.NETWORK} ${contractName}@${contractAddress}`,
+    `truffle run verify ${constructorParam} --network ${process.env.NETWORK} ${contractName}@${contractAddress}`,
     {
       stdio: 'inherit',
     },

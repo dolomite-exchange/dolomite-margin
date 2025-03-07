@@ -32,6 +32,7 @@ import { AuthorizationBase } from "../helpers/AuthorizationBase.sol";
 import { AccountActionLib } from "../lib/AccountActionLib.sol";
 
 import { ITransferProxy } from "../interfaces/ITransferProxy.sol";
+import { OnlyKeyringWhiteListed } from "../helpers/OnlyKeyringWhiteListed.sol";
 
 
 /**
@@ -40,7 +41,7 @@ import { ITransferProxy } from "../interfaces/ITransferProxy.sol";
  *
  * Contract for sending internal balances within Dolomite to other users/margin accounts easily
  */
-contract TransferProxy is ITransferProxy, AuthorizationBase, ReentrancyGuard {
+contract TransferProxy is ITransferProxy, AuthorizationBase, ReentrancyGuard, OnlyKeyringWhiteListed {
 
     // ============ Constants ============
 
@@ -67,6 +68,7 @@ contract TransferProxy is ITransferProxy, AuthorizationBase, ReentrancyGuard {
         external
         nonReentrant
         requireIsCallerAuthorized(msg.sender)
+        onlyKeyringWhiteListed()
     {
         uint256[] memory markets = new uint256[](1);
         markets[0] = DOLOMITE_MARGIN.getMarketIdByTokenAddress(_token);
@@ -93,6 +95,7 @@ contract TransferProxy is ITransferProxy, AuthorizationBase, ReentrancyGuard {
         external
         nonReentrant
         requireIsCallerAuthorized(msg.sender)
+        onlyKeyringWhiteListed()
     {
         IDolomiteMargin dolomiteMargin = DOLOMITE_MARGIN;
         uint256[] memory markets = new uint256[](_tokens.length);
@@ -119,6 +122,7 @@ contract TransferProxy is ITransferProxy, AuthorizationBase, ReentrancyGuard {
         external
         nonReentrant
         requireIsCallerAuthorized(msg.sender)
+        onlyKeyringWhiteListed()
     {
         _transferMultiple(
             _fromAccountNumber,

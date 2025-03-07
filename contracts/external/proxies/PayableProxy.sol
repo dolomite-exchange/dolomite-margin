@@ -27,6 +27,7 @@ import { Actions } from "../../protocol/lib/Actions.sol";
 import { Require } from "../../protocol/lib/Require.sol";
 import { OnlyDolomiteMargin } from "../helpers/OnlyDolomiteMargin.sol";
 import { IWETH } from "../interfaces/IWETH.sol";
+import { OnlyKeyringWhiteListed } from "../helpers/OnlyKeyringWhiteListed.sol";
 
 
 /**
@@ -35,7 +36,7 @@ import { IWETH } from "../interfaces/IWETH.sol";
  *
  * Contract for wrapping/unwrapping ETH before/after interacting with DolomiteMargin
  */
-contract PayableProxy is OnlyDolomiteMargin, ReentrancyGuard {
+contract PayableProxy is OnlyDolomiteMargin, ReentrancyGuard, OnlyKeyringWhiteListed {
     using Address for address payable;
 
     // ============ Constants ============
@@ -83,6 +84,7 @@ contract PayableProxy is OnlyDolomiteMargin, ReentrancyGuard {
         public
         payable
         nonReentrant
+        onlyKeyringWhiteListed()
     {
         IWETH weth = WETH;
 

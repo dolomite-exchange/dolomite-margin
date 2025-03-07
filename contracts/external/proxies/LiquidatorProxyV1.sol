@@ -35,6 +35,7 @@ import { Types } from "../../protocol/lib/Types.sol";
 import { HasLiquidatorRegistry } from "../helpers/HasLiquidatorRegistry.sol";
 import { LiquidatorProxyBase } from "../helpers/LiquidatorProxyBase.sol";
 import { OnlyDolomiteMargin } from "../helpers/OnlyDolomiteMargin.sol";
+import { OnlyKeyringWhiteListed } from "../helpers/OnlyKeyringWhiteListed.sol";
 
 
 /**
@@ -43,7 +44,7 @@ import { OnlyDolomiteMargin } from "../helpers/OnlyDolomiteMargin.sol";
  *
  * Contract for liquidating other accounts in DolomiteMargin.
  */
-contract LiquidatorProxyV1 is OnlyDolomiteMargin, ReentrancyGuard, LiquidatorProxyBase {
+contract LiquidatorProxyV1 is OnlyDolomiteMargin, ReentrancyGuard, LiquidatorProxyBase, OnlyKeyringWhiteListed {
     using DolomiteMarginMath for uint256;
     using SafeMath for uint256;
     using Types for Types.Par;
@@ -121,6 +122,7 @@ contract LiquidatorProxyV1 is OnlyDolomiteMargin, ReentrancyGuard, LiquidatorPro
         nonReentrant
         requireIsAssetsWhitelistedForLiquidation(_owedPreferences)
         requireIsAssetsWhitelistedForLiquidation(_heldPreferences)
+        onlyKeyringWhiteListed()
     {
         // put all values that will not change into a single struct
         LiquidatorProxyV1Constants memory constants;

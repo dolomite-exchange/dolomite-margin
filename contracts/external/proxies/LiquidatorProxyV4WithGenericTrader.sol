@@ -38,6 +38,7 @@ import { IIsolationModeUnwrapperTrader } from "../interfaces/IIsolationModeUnwra
 import { IIsolationModeWrapperTrader } from "../interfaces/IIsolationModeWrapperTrader.sol";
 
 import { AccountActionLib } from "../lib/AccountActionLib.sol";
+import { OnlyKeyringWhiteListed } from "../helpers/OnlyKeyringWhiteListed.sol";
 
 
 /**
@@ -53,7 +54,8 @@ contract LiquidatorProxyV4WithGenericTrader is
     HasLiquidatorRegistry,
     LiquidatorProxyBase,
     GenericTraderProxyBase,
-    ReentrancyGuard
+    ReentrancyGuard,
+    OnlyKeyringWhiteListed
 {
 
     // ============ Constants ============
@@ -104,6 +106,7 @@ contract LiquidatorProxyV4WithGenericTrader is
     )
         public
         nonReentrant
+        onlyKeyringWhiteListed()
     {
         GenericTraderProxyCache memory genericCache = GenericTraderProxyCache({
             dolomiteMargin: DOLOMITE_MARGIN,

@@ -36,6 +36,7 @@ import { AccountBalanceLib } from "../lib/AccountBalanceLib.sol";
 
 import { IDepositWithdrawalProxy } from "../interfaces/IDepositWithdrawalProxy.sol";
 import { IWETH } from "../interfaces/IWETH.sol";
+import { OnlyKeyringWhiteListed } from "../helpers/OnlyKeyringWhiteListed.sol";
 
 
 /**
@@ -45,7 +46,7 @@ import { IWETH } from "../interfaces/IWETH.sol";
  * @dev Contract for depositing or withdrawing to/from Dolomite easily. This lowers gas costs on Arbitrum by minimizing
  *      callData
  */
-contract DepositWithdrawalProxy is IDepositWithdrawalProxy, OnlyDolomiteMargin, ReentrancyGuard {
+contract DepositWithdrawalProxy is IDepositWithdrawalProxy, OnlyDolomiteMargin, ReentrancyGuard, OnlyKeyringWhiteListed {
     using Address for address payable;
 
     // ============ Constants ============
@@ -108,7 +109,8 @@ contract DepositWithdrawalProxy is IDepositWithdrawalProxy, OnlyDolomiteMargin, 
         uint256 _amountWei
     )
     external
-    nonReentrant {
+    nonReentrant
+    onlyKeyringWhiteListed() {
         AccountActionLib.deposit(
             DOLOMITE_MARGIN,
             /* _accountOwner = */ msg.sender, // solium-disable-line indentation
@@ -130,7 +132,8 @@ contract DepositWithdrawalProxy is IDepositWithdrawalProxy, OnlyDolomiteMargin, 
     external
     payable
     requireIsInitialized
-    nonReentrant {
+    nonReentrant
+    onlyKeyringWhiteListed() {
         _wrap();
         AccountActionLib.deposit(
             DOLOMITE_MARGIN,
@@ -152,7 +155,8 @@ contract DepositWithdrawalProxy is IDepositWithdrawalProxy, OnlyDolomiteMargin, 
         uint256 _amountWei
     )
     external
-    nonReentrant {
+    nonReentrant
+    onlyKeyringWhiteListed() {
         AccountActionLib.deposit(
             DOLOMITE_MARGIN,
             /* _accountOwner = */ msg.sender, // solium-disable-line indentation
@@ -172,7 +176,8 @@ contract DepositWithdrawalProxy is IDepositWithdrawalProxy, OnlyDolomiteMargin, 
     external
     payable
     requireIsInitialized
-    nonReentrant {
+    nonReentrant
+    onlyKeyringWhiteListed() {
         _wrap();
         AccountActionLib.deposit(
             DOLOMITE_MARGIN,
@@ -196,7 +201,8 @@ contract DepositWithdrawalProxy is IDepositWithdrawalProxy, OnlyDolomiteMargin, 
         AccountBalanceLib.BalanceCheckFlag _balanceCheckFlag
     )
     external
-    nonReentrant {
+    nonReentrant
+    onlyKeyringWhiteListed() {
         AccountActionLib.withdraw(
             DOLOMITE_MARGIN,
             /* _accountOwner = */ msg.sender, // solium-disable-line indentation
@@ -220,7 +226,8 @@ contract DepositWithdrawalProxy is IDepositWithdrawalProxy, OnlyDolomiteMargin, 
     )
     external
     requireIsInitialized
-    nonReentrant {
+    nonReentrant
+    onlyKeyringWhiteListed() {
         AccountActionLib.withdraw(
             DOLOMITE_MARGIN,
             /* _accountOwner = */ msg.sender, // solium-disable-line indentation
@@ -244,7 +251,8 @@ contract DepositWithdrawalProxy is IDepositWithdrawalProxy, OnlyDolomiteMargin, 
         AccountBalanceLib.BalanceCheckFlag _balanceCheckFlag
     )
     external
-    nonReentrant {
+    nonReentrant
+    onlyKeyringWhiteListed() {
         AccountActionLib.withdraw(
             DOLOMITE_MARGIN,
             /* _accountOwner = */ msg.sender, // solium-disable-line indentation
@@ -267,7 +275,8 @@ contract DepositWithdrawalProxy is IDepositWithdrawalProxy, OnlyDolomiteMargin, 
     )
     external
     requireIsInitialized
-    nonReentrant {
+    nonReentrant
+    onlyKeyringWhiteListed() {
         AccountActionLib.withdraw(
             DOLOMITE_MARGIN,
             /* _accountOwner = */ msg.sender, // solium-disable-line indentation
@@ -293,7 +302,8 @@ contract DepositWithdrawalProxy is IDepositWithdrawalProxy, OnlyDolomiteMargin, 
         uint256 _amountPar
     )
     external
-    nonReentrant {
+    nonReentrant
+    onlyKeyringWhiteListed() {
         AccountActionLib.deposit(
             DOLOMITE_MARGIN,
             /* _accountOwner = */ msg.sender, // solium-disable-line indentation
@@ -314,7 +324,8 @@ contract DepositWithdrawalProxy is IDepositWithdrawalProxy, OnlyDolomiteMargin, 
         uint256 _amountPar
     )
     external
-    nonReentrant {
+    nonReentrant
+    onlyKeyringWhiteListed() {
         AccountActionLib.deposit(
             DOLOMITE_MARGIN,
             /* _accountOwner = */ msg.sender, // solium-disable-line indentation
@@ -337,7 +348,8 @@ contract DepositWithdrawalProxy is IDepositWithdrawalProxy, OnlyDolomiteMargin, 
         AccountBalanceLib.BalanceCheckFlag _balanceCheckFlag
     )
     external
-    nonReentrant {
+    nonReentrant
+    onlyKeyringWhiteListed() {
         AccountActionLib.withdraw(
             DOLOMITE_MARGIN,
             /* _accountOwner = */ msg.sender, // solium-disable-line indentation
@@ -360,7 +372,8 @@ contract DepositWithdrawalProxy is IDepositWithdrawalProxy, OnlyDolomiteMargin, 
         AccountBalanceLib.BalanceCheckFlag _balanceCheckFlag
     )
     external
-    nonReentrant {
+    nonReentrant
+    onlyKeyringWhiteListed() {
         AccountActionLib.withdraw(
             DOLOMITE_MARGIN,
             /* _accountOwner = */ msg.sender, // solium-disable-line indentation

@@ -50,7 +50,7 @@ library SafeExternalCallback {
         Types.Wei memory _secondaryDeltaWei,
         uint256 _gasLimit
     ) internal {
-        if (_primaryAccount.owner.isContract()) {
+        if (_gasLimit != 0 && _primaryAccount.owner.isContract()) {
             uint16 maxCopyBytes = 256;
             (bool isCallSuccessful, bytes memory result) = _primaryAccount.owner.excessivelySafeCall(
                 /* _gas = */ Math.min(gasleft(), _gasLimit), // send, at most, `_gasLimit` to the callback
@@ -103,5 +103,4 @@ library SafeExternalCallback {
             }
         }
     }
-
 }

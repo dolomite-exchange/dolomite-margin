@@ -20,7 +20,7 @@
  * @typedef {Object} artifacts
  */
 
-const { isDevNetwork, getDelayedMultisigAddress, getContract, isBeraCartio } = require('./helpers');
+const { isDevNetwork, getDelayedMultisigAddress, getContract } = require('./helpers');
 
 // ============ Contracts ============
 
@@ -29,7 +29,7 @@ const DolomiteMargin = artifacts.require('DolomiteMargin');
 // ============ Main Migration ============
 
 const migration = async (deployer, network) => {
-  if (!isDevNetwork(network) && !isBeraCartio(network)) {
+  if (!isDevNetwork(network)) {
     const delayedMultisig = getDelayedMultisigAddress(network);
 
     const dolomiteMargin = await getContract(network, DolomiteMargin);

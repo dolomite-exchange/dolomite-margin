@@ -3,13 +3,13 @@ const {
   isArbitrumOne,
   isArbitrumNetwork,
   isBaseNetwork,
-  isEthereumMainnet,
   isPolygonZkEvmNetwork,
   isPolygonZkEvm,
   isMantleNetwork,
   isXLayerNetwork,
   isBase,
   isBeraNetwork,
+  isEthereumNetwork,
   isInk,
   isSuperSeed,
   getContract,
@@ -31,9 +31,6 @@ function getBtcUsdAggregatorAddress(network, TestBtcUsdChainlinkAggregator) {
   }
   if (isArbitrumOne(network)) {
     return '0x6ce185860a4963106506c203335a2910413708e9';
-  }
-  if (isEthereumMainnet(network)) {
-    return '0xF5fff180082d6017036B771bA883025c654BC935';
   }
   throw new Error(`Cannot find BTC-USD aggregator for network: ${network}`);
 }
@@ -58,9 +55,6 @@ function getEthUsdAggregatorAddress(network, TestEthUsdChainlinkAggregator) {
   if (isBase(network)) {
     return '0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70';
   }
-  if (isEthereumMainnet(network)) {
-    return '0xF79D6aFBb6dA890132F9D7c355e3015f15F3406F';
-  }
   if (isPolygonZkEvm(network)) {
     return '0x97d9F9A00dEE0004BE8ca0A8fa374d486567eE2D';
   }
@@ -74,18 +68,12 @@ function getLinkUsdAggregatorAddress(network, TestLinkUsdChainlinkAggregator) {
   if (isArbitrumOne(network)) {
     return '0x86e53cf1b870786351da77a57575e79cb55812cb';
   }
-  if (isEthereumMainnet(network)) {
-    return '0x32dbd3214aC75223e27e575C53944307914F7a90';
-  }
   throw new Error(`Cannot find LINK-USD aggregator for network: ${network}`);
 }
 
 function getLrcEthAggregatorAddress(network, TestLrcEthChainlinkAggregator) {
   if (isDevNetwork(network)) {
     return TestLrcEthChainlinkAggregator.address;
-  }
-  if (isEthereumMainnet(network)) {
-    return '0x8770Afe90c52Fd117f29192866DE705F63e59407';
   }
   throw new Error(`Cannot find LRC-USD aggregator for network: ${network}`);
 }
@@ -107,9 +95,6 @@ function getUsdtUsdAggregatorAddress(network) {
 function getUsdcEthAggregatorAddress(network, TestUsdcEthChainlinkAggregator) {
   if (isDevNetwork(network)) {
     return TestUsdcEthChainlinkAggregator.address;
-  }
-  if (isEthereumMainnet(network)) {
-    return '0xdE54467873c3BCAA76421061036053e371721708';
   }
   throw new Error(`Cannot find USDC-ETH aggregator for network: ${network}`);
 }
@@ -148,6 +133,7 @@ function getChainlinkPriceOracleV1Params(network, tokens, aggregators) {
     return mapPairsToParams(pairs);
   } else if (
     isBeraNetwork(network) ||
+    isEthereumNetwork(network) ||
     isInk(network) ||
     isMantleNetwork(network) ||
     isSuperSeed(network) ||

@@ -162,13 +162,13 @@ module.exports = {
         explorerUrl: 'https://berscan.com/address/',
       },
     },
-    berachain_bartio: {
-      network_id: '80084',
+    ethereum: {
+      network_id: '1',
       provider: () => {
         return new HDWalletProvider({
           pollingInterval,
           privateKeys: [process.env.DEPLOYER_PRIVATE_KEY],
-          providerOrUrl: process.env.BERACHAIN_BARTIO_RPC_URL,
+          providerOrUrl: process.env.ETHEREUM_RPC_URL,
         });
       },
       gasPrice: 1000000, // 0.001 gwei
@@ -179,31 +179,9 @@ module.exports = {
       deploymentPollingInterval: pollingInterval,
       disableConfirmationListener: true,
       verify: {
-        apiUrl: 'https://api.routescan.io/v2/network/testnet/evm/80084/etherscan/api',
+        apiUrl: 'https://api.berascan.com/api',
         apiKey: process.env.BERACHAIN_API_KEY,
-        explorerUrl: 'https://bartio.beratrail.io/address',
-      },
-    },
-    berachain_cartio: {
-      network_id: '80000',
-      provider: () => {
-        return new HDWalletProvider({
-          pollingInterval,
-          privateKeys: [process.env.DEPLOYER_PRIVATE_KEY],
-          providerOrUrl: process.env.BERACHAIN_CARTIO_RPC_URL,
-        });
-      },
-      gasPrice: 1000000, // 0.001 gwei
-      gas: 20000000, // 20M
-      timeoutBlocks: 5000,
-      networkCheckTimeout: 120000,
-      confirmations: 0,
-      deploymentPollingInterval: pollingInterval,
-      disableConfirmationListener: true,
-      verify: {
-        apiUrl: 'https://api.routescan.io/v2/network/testnet/evm/80000/etherscan/api',
-        apiKey: process.env.BERACHAIN_API_KEY,
-        explorerUrl: 'https://80000.testnet.routescan.io',
+        explorerUrl: 'https://berscan.com/address/',
       },
     },
     ink: {

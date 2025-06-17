@@ -22,7 +22,7 @@
 
 const {
   isDevNetwork,
-  isEthereumMainnet,
+  isEthereumNetwork,
   getRiskLimits,
   getRiskParams,
   getChainlinkOracleSentinelGracePeriod,
@@ -72,10 +72,10 @@ async function deployBaseProtocol(deployer, network) {
     dolomiteMargin = artifacts.require('TestDolomiteMargin');
     await dolomiteMargin.link('TestOperationImpl', OperationImpl.address);
   } else if (
-    isEthereumMainnet(network) ||
     isArbitrumNetwork(network) ||
     isBaseNetwork(network) ||
     isBeraNetwork(network) ||
+    isEthereumNetwork(network) ||
     isInk(network) ||
     isMantleNetwork(network) ||
     isPolygonZkEvmNetwork(network) ||

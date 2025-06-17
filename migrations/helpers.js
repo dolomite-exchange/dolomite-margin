@@ -42,7 +42,11 @@ function isPolygonZkEvmNetwork(network) {
 }
 
 function isBeraNetwork(network) {
-  return isBerachain(network) || isBeraBartio(network) || isBeraCartio(network);
+  return isBerachain(network);
+}
+
+function isEthereumNetwork(network) {
+  return isEthereumMainnet(network);
 }
 
 function isMantleNetwork(network) {
@@ -71,22 +75,12 @@ function isBase(network) {
 
 function isEthereumMainnet(network) {
   verifyNetwork(network);
-  return network === 'mainnet';
+  return network === 'ethereum';
 }
 
 function isBerachain(network) {
   verifyNetwork(network);
   return network === 'berachain';
-}
-
-function isBeraBartio(network) {
-  verifyNetwork(network);
-  return network === 'berachain_bartio';
-}
-
-function isBeraCartio(network) {
-  verifyNetwork(network);
-  return network === 'berachain_cartio';
 }
 
 function isInk(network) {
@@ -134,17 +128,14 @@ function getChainId(network) {
   if (isBerachain(network)) {
     return 80094;
   }
-  if (isBeraBartio(network)) {
-    return 80084;
-  }
-  if (isBeraCartio(network)) {
-    return 80000;
-  }
   if (isCoverageTestNetwork(network)) {
     return 1002;
   }
   if ('docker' === network) {
     return 1313;
+  }
+  if (isEthereumMainnet(network)) {
+    return 1;
   }
   if (isInk(network)) {
     return 57073;
@@ -393,7 +384,7 @@ module.exports = {
   isArbitrumOne,
   getChainId,
   isDevNetwork,
-  isEthereumMainnet,
+  isEthereumNetwork,
   isBeraNetwork,
   isBeraCartio,
   isInk,

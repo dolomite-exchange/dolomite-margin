@@ -56,8 +56,6 @@
     "deploy_base": "NETWORK=base npm run deploy",
     "deploy_base_sepolia": "NETWORK=base_sepolia npm run deploy",
     "deploy_berachain": "NETWORK=berachain npm run deploy",
-    "deploy_berachain_bartio": "NETWORK=berachain_bartio npm run deploy",
-    "deploy_berachain_cartio": "NETWORK=berachain_cartio npm run deploy",
     "deploy_ink": "NETWORK=ink npm run deploy",
     "deploy_mainnet": "NETWORK=mainnet npm run deploy",
     "deploy_mantle": "NETWORK=mantle npm run deploy",

@@ -33,6 +33,8 @@ const {
   isSuperSeed,
   isInk,
   setAutoTraderSpecialIfNecessary,
+  isEthereumNetwork,
+  isBotanixNetwork,
 } = require('./helpers');
 const {
   getDaiAddress,
@@ -86,6 +88,8 @@ async function setupProtocol(deployer, network) {
   if (
     isMantleNetwork(network) ||
     isBeraNetwork(network) ||
+    isBotanixNetwork(network) ||
+    isEthereumNetwork(network) ||
     isInk(network) ||
     isSuperSeed(network) ||
     isXLayerNetwork(network)

@@ -4,6 +4,7 @@ import fs from 'fs';
 import PartiallyDelayedMultisig from '../build/contracts/PartiallyDelayedMultiSig.json';
 import deployed from '../migrations/deployed.json';
 import { ConfirmationType, DolomiteMargin } from '../src';
+import { ethers } from 'ethers';
 
 const truffle = require('../truffle.js');
 
@@ -34,6 +35,7 @@ async function deploy(): Promise<void> {
   const dolomiteMargin = new DolomiteMargin(provider, networkId);
   const deployer = (await dolomiteMargin.web3.eth.getAccounts())[0];
   console.log('Deploying from:', deployer);
+  console.log('Gas currency:', ethers.utils.formatEther(await dolomiteMargin.web3.eth.getBalance(deployer)));
 
   const contract = new dolomiteMargin.web3.eth.Contract(PartiallyDelayedMultisig.abi);
   const txResult = await dolomiteMargin.contracts.callContractFunction(
@@ -52,8 +54,8 @@ async function deploy(): Promise<void> {
 
   console.log(`Deployed ${contractName} to ${txResult.contractAddress}`);
   // sleeping for 5 seconds to allow for the transaction to settle before verification
-  console.log('Sleeping for 5 seconds...');
-  await sleep(5000);
+  console.log('Sleeping for 15 seconds...');
+  await sleep(15_000);
 
   execSync(`truffle run verify --network ${network} ${contractName}@${txResult.contractAddress}`, {
     stdio: 'inherit',

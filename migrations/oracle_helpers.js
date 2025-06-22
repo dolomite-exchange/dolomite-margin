@@ -13,6 +13,7 @@ const {
   isInk,
   isSuperSeed,
   getContract,
+  isBotanixNetwork,
 } = require('./helpers');
 const {
   getDaiAddress,
@@ -133,6 +134,7 @@ function getChainlinkPriceOracleV1Params(network, tokens, aggregators) {
     return mapPairsToParams(pairs);
   } else if (
     isBeraNetwork(network) ||
+    isBotanixNetwork(network) ||
     isEthereumNetwork(network) ||
     isInk(network) ||
     isMantleNetwork(network) ||

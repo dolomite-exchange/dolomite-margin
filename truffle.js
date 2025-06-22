@@ -61,18 +61,6 @@ module.exports = {
       gasPrice: 1,
       network_id: '1001',
     },
-    mainnet: {
-      network_id: '1',
-      provider: () =>
-        new HDWalletProvider({
-          privateKeys: [process.env.DEPLOYER_PRIVATE_KEY],
-          providerOrUrl: process.env.NODE_URL,
-        }),
-      gasPrice: Number(process.env.GAS_PRICE),
-      gas: 6900000,
-      timeoutBlocks: 5000,
-      networkCheckTimeout: 120000,
-    },
     dev: {
       host: 'localhost',
       port: 8545,
@@ -162,7 +150,29 @@ module.exports = {
         explorerUrl: 'https://berscan.com/address/',
       },
     },
-    ethereum: {
+    botanix: {
+      network_id: '3637',
+      provider: () => {
+        return new HDWalletProvider({
+          pollingInterval,
+          privateKeys: [process.env.DEPLOYER_PRIVATE_KEY],
+          providerOrUrl: process.env.BOTANIX_RPC_URL,
+        });
+      },
+      gasPrice: 800000, // 0.0008 gwei
+      gas: 8000000, // 8M
+      timeoutBlocks: 5000,
+      networkCheckTimeout: 120000,
+      confirmations: 0,
+      deploymentPollingInterval: pollingInterval,
+      disableConfirmationListener: true,
+      verify: {
+        apiUrl: 'https://api.routescan.io/v2/network/mainnet/evm/3637/etherscan/api',
+        apiKey: process.env.BOTANIXSCAN_API_KEY,
+        explorerUrl: 'https://botanixscan.io/address/',
+      },
+    },
+    ethereum_mainnet: {
       network_id: '1',
       provider: () => {
         return new HDWalletProvider({
@@ -171,7 +181,7 @@ module.exports = {
           providerOrUrl: process.env.ETHEREUM_RPC_URL,
         });
       },
-      gasPrice: 1000000, // 0.001 gwei
+      gasPrice: 1000000000, // 1.0 gwei
       gas: 20000000, // 20M
       timeoutBlocks: 5000,
       networkCheckTimeout: 120000,
@@ -179,9 +189,9 @@ module.exports = {
       deploymentPollingInterval: pollingInterval,
       disableConfirmationListener: true,
       verify: {
-        apiUrl: 'https://api.berascan.com/api',
-        apiKey: process.env.BERACHAIN_API_KEY,
-        explorerUrl: 'https://berscan.com/address/',
+        apiUrl: 'https://api.etherscan.io/api',
+        apiKey: process.env.ETHERSCAN_API_KEY,
+        explorerUrl: 'https://etherscan.io/address/',
       },
     },
     ink: {

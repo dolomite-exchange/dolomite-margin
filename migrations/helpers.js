@@ -61,6 +61,10 @@ function isBaseNetwork(network) {
   return isBase(network);
 }
 
+function isBotanixNetwork(network) {
+  return isBotanix(network);
+}
+
 // ================== Production Networks ==================
 
 function isArbitrumOne(network) {
@@ -73,9 +77,14 @@ function isBase(network) {
   return network === 'base';
 }
 
+function isBotanix(network) {
+  verifyNetwork(network);
+  return network === 'botanix';
+}
+
 function isEthereumMainnet(network) {
   verifyNetwork(network);
-  return network === 'ethereum';
+  return network === 'ethereum_mainnet';
 }
 
 function isBerachain(network) {
@@ -127,6 +136,9 @@ function getChainId(network) {
   }
   if (isBerachain(network)) {
     return 80094;
+  }
+  if (isBotanix(network)) {
+    return 3637;
   }
   if (isCoverageTestNetwork(network)) {
     return 1002;
@@ -215,6 +227,7 @@ function getDelayedMultisigAddress(network) {
     isArbitrumNetwork(network) ||
     isBeraNetwork(network) ||
     isBaseNetwork(network) ||
+    isBotanixNetwork(network) ||
     isEthereumMainnet(network) ||
     isInk(network) ||
     isMantleNetwork(network) ||
@@ -239,7 +252,9 @@ function getChainlinkSequencerUptimeFeed(network, TestSequencerUptimeFeedAggrega
   } else if (isBase(network)) {
     return '0xBCF85224fc0756B9Fa45aA7892530B47e10b6433';
   } else if (
+    isBotanixNetwork(network) ||
     isBeraNetwork(network) ||
+    isEthereumNetwork(network) ||
     isInk(network) ||
     isMantle(network) ||
     isPolygonZkEvm(network) ||
@@ -322,11 +337,7 @@ async function deployContractIfNecessary(artifacts, deployer, network, artifact,
           address: contractAddress,
           transactionHash: transactionHash,
         };
-        console.log(
-          '='.repeat(49 - (contractName.length / 2)),
-          contractName,
-          '='.repeat(49 - (contractName.length / 2)),
-        );
+        console.log('='.repeat(49 - contractName.length / 2), contractName, '='.repeat(49 - contractName.length / 2));
         console.log(JSON.stringify(data, null, 2));
         console.log('='.repeat(100));
         json[contractName][getChainId(network)] = data;
@@ -378,15 +389,15 @@ async function getContract(network, artifact) {
 
 module.exports = {
   isArbitrumNetwork,
+  isArbitrumOne,
   isBase,
   isBaseNetwork,
+  isBotanixNetwork,
   isPolygonZkEvmNetwork,
-  isArbitrumOne,
   getChainId,
   isDevNetwork,
   isEthereumNetwork,
   isBeraNetwork,
-  isBeraCartio,
   isInk,
   isMantleNetwork,
   isPolygonZkEvm,

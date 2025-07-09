@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2020",
     "module": "commonjs",
     "lib": [
       "es2015",
@@ -15,11 +15,13 @@
     "esModuleInterop": true,
     "outDir": "dist",
     "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "typeRoots": ["./src/types", "./node_modules/@types"]
   },
   "include": [
     "src",
     "test",
     "scripts"
   ],
-  "compileOnSave": true
+  "compileOnSave": true,
 }

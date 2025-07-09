@@ -24,8 +24,8 @@ async function deploy(): Promise<void> {
   }
 
   const nodeVersion = execSync('node --version', { stdio: 'pipe' });
-  if (nodeVersion.toString().trim() !== 'v16.15.1') {
-    return Promise.reject(new Error('Incorrect node version! Expected v16.15.1'));
+  if (nodeVersion.toString().trim() !== 'v20.17.0') {
+    return Promise.reject(new Error('Incorrect node version! Expected v20.17.0'));
   }
 
   console.log(`Deploying to ${network}...`);

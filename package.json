@@ -109,12 +109,12 @@
     "web3": "1.2.1"
   },
   "devDependencies": {
-    "@poanet/solidity-flattener": "^3.0.9",
     "@truffle/config": "^1.2.14",
     "@truffle/hdwallet-provider": "2.0.6",
     "@types/axios": "^0.14.0",
     "@types/es6-promisify": "^6.0.0",
     "@types/expect.js": "^0.3.29",
+    "@types/minimatch": "^6.0.0",
     "@types/mocha": "^9.1.1",
     "@types/node": "^10.12.30",
     "acorn": "^6.0.0",

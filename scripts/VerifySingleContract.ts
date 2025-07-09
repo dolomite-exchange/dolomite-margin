@@ -5,7 +5,7 @@ import getConstructorArgsByContractName from './getConstructorArgsByContractName
 
 const truffle = require('../truffle');
 
-const EXPECTED_NODE_VERSION = 'v16.15.1';
+const EXPECTED_NODE_VERSION = 'v20.17.0';
 
 async function verifySingleContract(): Promise<void> {
   if (!process.env.NETWORK) {

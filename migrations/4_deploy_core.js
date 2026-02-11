@@ -38,6 +38,7 @@ const {
   isInk,
   isSuperSeed,
   isBotanixNetwork,
+  isBnbNetwork,
 } = require('./helpers');
 
 const DolomiteMargin = artifacts.require('DolomiteMargin');
@@ -76,6 +77,7 @@ async function deployBaseProtocol(deployer, network) {
     isArbitrumNetwork(network) ||
     isBaseNetwork(network) ||
     isBeraNetwork(network) ||
+    isBnbNetwork(network) ||
     isBotanixNetwork(network) ||
     isEthereumNetwork(network) ||
     isInk(network) ||

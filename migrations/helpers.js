@@ -61,6 +61,10 @@ function isBaseNetwork(network) {
   return isBase(network);
 }
 
+function isBnbNetwork(network) {
+  return isBnb(network);
+}
+
 function isBotanixNetwork(network) {
   return isBotanix(network);
 }
@@ -75,6 +79,11 @@ function isArbitrumOne(network) {
 function isBase(network) {
   verifyNetwork(network);
   return network === 'base';
+}
+
+function isBnb(network) {
+  verifyNetwork(network);
+  return network === 'bnb';
 }
 
 function isBotanix(network) {
@@ -137,6 +146,9 @@ function getChainId(network) {
   if (isBerachain(network)) {
     return 80094;
   }
+  if (isBnb(network)) {
+    return 56;
+  }
   if (isBotanix(network)) {
     return 3637;
   }
@@ -173,10 +185,10 @@ function getChainId(network) {
 async function getRiskLimits() {
   return {
     marginRatioMax: decimalToString('2.00'), // 200%
-    liquidationSpreadMax: decimalToString('0.50'), // 50%
+    liquidationSpreadMax: decimalToString('0.90'), // 90%
     earningsRateMax: decimalToString('1.00'), // 100%
     marginPremiumMax: decimalToString('2.00'), // 200%
-    liquidationSpreadPremiumMax: decimalToString('5.00'), // 500%
+    liquidationSpreadPremiumMax: decimalToString('10.00'), // 1000%
     interestRateMax: decimalToString('100.00'), // 10,000%
     minBorrowedValueMax: '100000000000000000000000000000000000000', // $100
   };
@@ -191,10 +203,10 @@ async function getRiskParams(network) {
   return {
     marginRatio: { value: decimalToString('0.15') },
     liquidationSpread: { value: decimalToString('0.05') },
-    earningsRate: { value: decimalToString('0.85') },
+    earningsRate: { value: decimalToString('0.80') },
     minBorrowedValue: { value: decimalToString(minBorrowedValue) },
     accountMaxNumberOfMarketsWithBalances: '32',
-    callbackGasLimit: 2000000, // 2M
+    callbackGasLimit: 0, // 0M
   };
 }
 
@@ -225,8 +237,9 @@ function verifyNetwork(network) {
 function getDelayedMultisigAddress(network) {
   if (
     isArbitrumNetwork(network) ||
-    isBeraNetwork(network) ||
     isBaseNetwork(network) ||
+    isBeraNetwork(network) ||
+    isBnbNetwork(network) ||
     isBotanixNetwork(network) ||
     isEthereumMainnet(network) ||
     isInk(network) ||
@@ -254,6 +267,7 @@ function getChainlinkSequencerUptimeFeed(network, TestSequencerUptimeFeedAggrega
   } else if (
     isBotanixNetwork(network) ||
     isBeraNetwork(network) ||
+    isBnbNetwork(network) ||
     isEthereumNetwork(network) ||
     isInk(network) ||
     isMantle(network) ||
@@ -398,6 +412,7 @@ module.exports = {
   isDevNetwork,
   isEthereumNetwork,
   isBeraNetwork,
+  isBnbNetwork,
   isInk,
   isMantleNetwork,
   isPolygonZkEvm,

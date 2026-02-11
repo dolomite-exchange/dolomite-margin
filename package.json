@@ -1,6 +1,6 @@
 {
   "name": "@dolomite-exchange/dolomite-margin",
-  "version": "0.14.4",
+  "version": "0.15.0",
   "description": "Ethereum Smart Contracts and TypeScript library used for the DolomiteMargin trading protocol",
   "engines": {
     "npm": "6.14.x"
@@ -48,12 +48,13 @@
     "docker_node": "ganache-cli -i 1313 -d -p 8545 -h 0.0.0.0 --db=/home/.ganache",
     "clean_contract_json": "ts-node ./scripts/CleanBuild.ts",
     "fix_deployment_file": "ts-node ./scripts/FixDeploymentFile.ts",
-    "deploy": "npm run fix_deployment_file && NODE_ENV=production node --max-old-space-size=32384 node_modules/.bin/truffle migrate --network $NETWORK --skip-dry-run && npm run save_deployed_addresses",
+    "deploy": "npm run fix_deployment_file && NODE_ENV=production truffle migrate --network $NETWORK --skip-dry-run && npm run save_deployed_addresses",
     "deploy_single": "NODE_ENV=production ts-node scripts/DeployContract.ts",
     "deploy_partially_delayed_multisig": "NODE_ENV=production ts-node scripts/DeployPartiallyDelayedMultisig.ts",
     "deploy_arbitrum_one": "NETWORK=arbitrum_one npm run deploy",
     "deploy_base": "NETWORK=base npm run deploy",
     "deploy_berachain": "NETWORK=berachain npm run deploy",
+    "deploy_bnb": "NETWORK=bnb npm run deploy",
     "deploy_botanix": "NETWORK=botanix npm run deploy",
     "deploy_ethereum_mainnet": "NETWORK=ethereum_mainnet npm run deploy",
     "deploy_ink": "NETWORK=ink npm run deploy",
@@ -143,5 +144,6 @@
     "tslint-no-focused-test": "^0.5.0",
     "typechain": "0.3.11",
     "typescript": "^3.8.3"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }

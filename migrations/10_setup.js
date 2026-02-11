@@ -35,6 +35,7 @@ const {
   setAutoTraderSpecialIfNecessary,
   isEthereumNetwork,
   isBotanixNetwork,
+  isBnbNetwork,
 } = require('./helpers');
 const {
   getDaiAddress,
@@ -88,6 +89,7 @@ async function setupProtocol(deployer, network) {
   if (
     isMantleNetwork(network) ||
     isBeraNetwork(network) ||
+    isBnbNetwork(network) ||
     isBotanixNetwork(network) ||
     isEthereumNetwork(network) ||
     isInk(network) ||

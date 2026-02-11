@@ -91,6 +91,9 @@ module.exports = {
       port: 8545,
       gasPrice: 1,
     },
+    // ==============================
+    // ========= Production =========
+    // ==============================
     arbitrum_one: {
       network_id: '42161',
       provider: () => {
@@ -148,6 +151,28 @@ module.exports = {
         apiUrl: 'https://api.berascan.com/api',
         apiKey: process.env.BERACHAIN_API_KEY,
         explorerUrl: 'https://berscan.com/address/',
+      },
+    },
+    bnb: {
+      network_id: '56',
+      provider: () => {
+        return new HDWalletProvider({
+          pollingInterval,
+          privateKeys: [process.env.DEPLOYER_PRIVATE_KEY],
+          providerOrUrl: process.env.BNBCHAIN_RPC_URL,
+        });
+      },
+      gasPrice: 50000000, // 0.05 gwei
+      gas: 20000000, // 20M
+      timeoutBlocks: 5000,
+      networkCheckTimeout: 120000,
+      confirmations: 0,
+      deploymentPollingInterval: pollingInterval,
+      disableConfirmationListener: true,
+      verify: {
+        apiUrl: 'https://api.etherscan.io/v2/api?chainid=56',
+        apiKey: process.env.BNBCHAIN_API_KEY,
+        explorerUrl: 'https://bscscan.com/address/',
       },
     },
     botanix: {

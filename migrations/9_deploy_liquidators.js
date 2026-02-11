@@ -68,7 +68,7 @@ async function deploySecondLayer(deployer, network) {
     liquidatorAssetRegistry.address,
     dolomiteMargin.address,
   ]);
-  const liquidatorProxyV4WithGenericTrader = await deployContractIfNecessary(
+  await deployContractIfNecessary(
     artifacts,
     deployer,
     network,
@@ -78,7 +78,6 @@ async function deploySecondLayer(deployer, network) {
 
   await setGlobalOperatorIfNecessary(dolomiteMargin, expiryProxy.address);
   await setGlobalOperatorIfNecessary(dolomiteMargin, liquidatorProxyV1.address);
-  await setGlobalOperatorIfNecessary(dolomiteMargin, liquidatorProxyV4WithGenericTrader.address);
 }
 
 async function getDolomiteMargin(network) {

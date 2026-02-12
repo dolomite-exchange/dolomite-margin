@@ -306,7 +306,7 @@ async function deployContractIfNecessary(artifacts, deployer, network, artifact,
 
   if (shouldOverwrite(artifact, network)) {
     if (!isDevNetwork(network)) {
-      const json = JSON.parse(readFileSync('migrations/deployed.json').toString());
+      let json = JSON.parse(readFileSync('migrations/deployed.json').toString());
       if (
         json[contractName] &&
         json[contractName][getChainId(network)] &&
@@ -345,6 +345,7 @@ async function deployContractIfNecessary(artifacts, deployer, network, artifact,
         transactionHash = result.receipt.transactionHash;
       }
 
+      json = JSON.parse(readFileSync('migrations/deployed.json').toString());
       if (!json[contractName][getChainId(network)] || !json[contractName][getChainId(network)].address) {
         const data = {
           links: artifact.links,

@@ -1030,7 +1030,9 @@
         "8453": {
             "links": {
                 "GenericTraderProxyV1Lib": "0x79A26AC69533Cd29544a8c0C53363e2D9392e2D0"
-            }
+            },
+            "address": "0xb50BcDFC914e0AfB484Dee621F49010862Fb928d",
+            "transactionHash": "0x8f40aaeb5b4a6b52b18a0b95c29061c0e35e62c7c3383c508c3fb11067231cd3"
         },
         "42161": {
             "links": {

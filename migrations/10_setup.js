@@ -36,6 +36,7 @@ const {
   isEthereumNetwork,
   isBotanixNetwork,
   isBnbNetwork,
+  isSepolia,
 } = require('./helpers');
 const {
   getDaiAddress,
@@ -93,6 +94,7 @@ async function setupProtocol(deployer, network) {
     isBotanixNetwork(network) ||
     isEthereumNetwork(network) ||
     isInk(network) ||
+    isSepolia(network) ||
     isSuperSeed(network) ||
     isXLayerNetwork(network)
   ) {

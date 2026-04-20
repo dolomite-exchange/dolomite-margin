@@ -14,7 +14,7 @@ const {
   isSuperSeed,
   getContract,
   isBotanixNetwork,
-  isBnbNetwork,
+  isBnbNetwork, isSepolia,
 } = require('./helpers');
 const {
   getDaiAddress,
@@ -140,6 +140,7 @@ function getChainlinkPriceOracleV1Params(network, tokens, aggregators) {
     isEthereumNetwork(network) ||
     isInk(network) ||
     isMantleNetwork(network) ||
+    isSepolia(network) ||
     isSuperSeed(network) ||
     isXLayerNetwork(network)
   ) {

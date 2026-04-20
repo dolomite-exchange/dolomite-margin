@@ -36,6 +36,7 @@ const {
   getContract,
   deployContractIfNecessary,
   isInk,
+  isSepolia,
   isSuperSeed,
   isBotanixNetwork,
   isBnbNetwork,
@@ -83,6 +84,7 @@ async function deployBaseProtocol(deployer, network) {
     isInk(network) ||
     isMantleNetwork(network) ||
     isPolygonZkEvmNetwork(network) ||
+    isSepolia(network) ||
     isSuperSeed(network) ||
     isXLayerNetwork(network)
   ) {

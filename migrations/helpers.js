@@ -116,6 +116,11 @@ function isPolygonZkEvm(network) {
   return network === 'polygon_zkevm';
 }
 
+function isSepolia(network) {
+  verifyNetwork(network);
+  return network === 'sepolia';
+}
+
 function isSuperSeed(network) {
   verifyNetwork(network);
   return network === 'super_seed';
@@ -172,6 +177,9 @@ function getChainId(network) {
   }
   if (isPolygonZkEvm(network)) {
     return 1101;
+  }
+  if (isSepolia(network)) {
+    return 11155111;
   }
   if (isSuperSeed(network)) {
     return 5330;
@@ -245,6 +253,7 @@ function getDelayedMultisigAddress(network) {
     isInk(network) ||
     isMantleNetwork(network) ||
     isPolygonZkEvmNetwork(network) ||
+    isSepolia(network) ||
     isSuperSeed(network) ||
     isXLayerNetwork(network)
   ) {
@@ -272,6 +281,7 @@ function getChainlinkSequencerUptimeFeed(network, TestSequencerUptimeFeedAggrega
     isInk(network) ||
     isMantle(network) ||
     isPolygonZkEvm(network) ||
+    isSepolia(network) ||
     isSuperSeed(network) ||
     isXLayer(network)
   ) {
@@ -417,6 +427,7 @@ module.exports = {
   isInk,
   isMantleNetwork,
   isPolygonZkEvm,
+  isSepolia,
   isSuperSeed,
   isXLayerNetwork,
   isDocker,

@@ -285,6 +285,29 @@ module.exports = {
         explorerUrl: 'https://zkevm.polygonscan.com/address',
       },
     },
+    sepolia: {
+      network_id: '11155111',
+      provider: () => {
+        return new HDWalletProvider({
+          pollingInterval,
+          privateKeys: [process.env.DEPLOYER_PRIVATE_KEY],
+          // providerOrUrl: 'https://mainnet.superseed.xyz',
+          providerOrUrl: process.env.SEPOLIA_RPC_URL,
+        });
+      },
+      gasPrice: 50000000, // 0.05 gwei
+      gas: 10000000, // 10M
+      timeoutBlocks: 5000,
+      networkCheckTimeout: 120000,
+      confirmations: 0,
+      deploymentPollingInterval: pollingInterval,
+      disableConfirmationListener: true,
+      verify: {
+        apiUrl: 'https://api.etherscan.io/v2/api?chainid=11155111',
+        apiKey: process.env.ETHERSCAN_API_KEY,
+        explorerUrl: 'https://sepolia.etherscan.io/address',
+      },
+    },
     super_seed: {
       network_id: '5330',
       provider: () => {
@@ -292,7 +315,8 @@ module.exports = {
           pollingInterval,
           privateKeys: [process.env.DEPLOYER_PRIVATE_KEY],
           // providerOrUrl: 'https://mainnet.superseed.xyz',
-          providerOrUrl: 'https://magical-solemn-star.superseed-mainnet.quiknode.pro/ca608ad5d36db0699081667f87e312a5ee923627',
+          providerOrUrl:
+            'https://magical-solemn-star.superseed-mainnet.quiknode.pro/ca608ad5d36db0699081667f87e312a5ee923627',
         });
       },
       gasPrice: 5000000, // 0.005 gwei

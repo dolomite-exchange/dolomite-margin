@@ -1,6 +1,6 @@
 {
   "name": "@dolomite-exchange/dolomite-margin",
-  "version": "0.15.2",
+  "version": "0.15.3",
   "description": "Ethereum Smart Contracts and TypeScript library used for the DolomiteMargin trading protocol",
   "engines": {
     "npm": "6.14.x"
@@ -60,6 +60,7 @@
     "deploy_ink": "NETWORK=ink npm run deploy",
     "deploy_mantle": "NETWORK=mantle npm run deploy",
     "deploy_polygon_zkevm": "NETWORK=polygon_zkevm npm run deploy",
+    "deploy_sepolia": "NETWORK=sepolia npm run deploy",
     "deploy_super_seed": "NETWORK=super_seed npm run deploy",
     "deploy_x_layer": "NETWORK=x_layer npm run deploy",
     "deploy_coverage": "RPC_NODE_URI=http:/w/127.0.01:8545 npm run reset_test_evm && COVERAGE_REPLICA_DEPLOY=true node --max-old-space-size=32768 node_modules/.bin/truffle migrate --network coverage_replica && RPC_NODE_URI=http://127.0.0.1:8545 npm run snapshot_test_evm && npm run build:contract-artifacts",

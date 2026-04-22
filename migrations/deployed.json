@@ -813,7 +813,9 @@
                 "AdminImpl": "0x08243969dDd1F038473FE0b56172468A91070616",
                 "GettersImpl": "0xba33D91764C06Ac4C3E38DCB66567C2D09575009",
                 "OperationImpl": "0x460DFE88B642705c588bd55660CC2c4C6578eE64"
-            }
+            },
+          "address": "0x003Ca23Fd5F0ca87D01F6eC6CD14A8AE60c2b97D",
+          "transactionHash": "0xec583d30b02069a232214a6fdac482d62b5dcd28766ee4156db338438ec600a4"
         }
     },
     "DoubleExponentInterestSetter": {
@@ -1140,7 +1142,9 @@
         "11155111": {
             "links": {
                 "GenericTraderProxyV1Lib": "0x79A26AC69533Cd29544a8c0C53363e2D9392e2D0"
-            }
+            },
+          "address": "0xb50BcDFC914e0AfB484Dee621F49010862Fb928d",
+          "transactionHash": "0x87fc31b6267ce7735921e5c9ed8650cd587fd94208574629b3ece159d79445d2"
         }
     },
     "GenericTraderProxyV1Lib": {

@@ -41,7 +41,7 @@ import { AccountBalanceLib } from "../lib/AccountBalanceLib.sol";
  * @dev Proxy contract for opening borrow positions. This makes indexing easier and lowers gas costs on Arbitrum by
  *      minimizing call data
  */
-contract BorrowPositionProxyV1 is IBorrowPositionProxyV1, OnlyDolomiteMargin {
+contract BorrowPositionProxyV1 is IBorrowPositionProxyV1, OnlyKeyringWhiteListed {
     using Types for Types.Par;
 
     constructor (
@@ -57,7 +57,7 @@ contract BorrowPositionProxyV1 is IBorrowPositionProxyV1, OnlyDolomiteMargin {
         uint256 _marketId,
         uint256 _amountWei,
         AccountBalanceLib.BalanceCheckFlag _balanceCheckFlag
-    ) external {
+    ) external onlyKeyringWhiteListed {
         // Emit this before the call to DolomiteMargin so indexers get it before the Transfer events are emitted
         emit BorrowPositionOpen(msg.sender, _toAccountNumber);
 
@@ -74,7 +74,7 @@ contract BorrowPositionProxyV1 is IBorrowPositionProxyV1, OnlyDolomiteMargin {
         uint256 _borrowAccountNumber,
         uint256 _toAccountNumber,
         uint256[] calldata _collateralMarketIds
-    ) external {
+    ) external onlyKeyringWhiteListed {
         Account.Info[] memory accounts = new Account.Info[](2);
         accounts[0] = Account.Info(msg.sender, _borrowAccountNumber);
         accounts[1] = Account.Info(msg.sender, _toAccountNumber);
@@ -99,7 +99,7 @@ contract BorrowPositionProxyV1 is IBorrowPositionProxyV1, OnlyDolomiteMargin {
         uint256 _marketId,
         uint256 _amountWei,
         AccountBalanceLib.BalanceCheckFlag _balanceCheckFlag
-    ) external {
+    ) external onlyKeyringWhiteListed {
         _transferBetweenAccounts(
             _fromAccountNumber,
             _toAccountNumber,
@@ -115,7 +115,7 @@ contract BorrowPositionProxyV1 is IBorrowPositionProxyV1, OnlyDolomiteMargin {
         uint256 _borrowAccountNumber,
         uint256 _marketId,
         AccountBalanceLib.BalanceCheckFlag _balanceCheckFlag
-    ) external {
+    ) external onlyKeyringWhiteListed {
         // reverse the ordering of the `_borrowAccountNumber` and `_fromAccountNumber`, so using `Target = 0` calculates
         // on `_borrowAccountNumber`. We then need to reverse the `AccountBalanceLib.BalanceCheckFlag` if it's set to
         // `from` or `to`.

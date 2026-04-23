@@ -32,6 +32,7 @@ import { Types } from "../../protocol/lib/Types.sol";
 import { GenericTraderProxyBase } from "../helpers/GenericTraderProxyBase.sol";
 import { HasLiquidatorRegistry } from "../helpers/HasLiquidatorRegistry.sol";
 import { OnlyDolomiteMargin } from "../helpers/OnlyDolomiteMargin.sol";
+import { OnlyKeyringWhiteListed } from "../helpers/OnlyKeyringWhiteListed.sol";
 
 import { IExpiry } from "../interfaces/IExpiry.sol";
 import { IGenericTraderProxyV1 } from "../interfaces/IGenericTraderProxyV1.sol";
@@ -51,7 +52,7 @@ import { GenericTraderProxyV1Lib } from "./GenericTraderProxyV1Lib.sol";
  *
  * @dev Proxy contract for trading any asset from msg.sender
  */
-contract GenericTraderProxyV1 is IGenericTraderProxyV1, GenericTraderProxyBase, OnlyDolomiteMargin, ReentrancyGuard {
+contract GenericTraderProxyV1 is IGenericTraderProxyV1, GenericTraderProxyBase, OnlyDolomiteMargin, ReentrancyGuard, OnlyKeyringWhiteListed {
     using Types for Types.Wei;
 
     // ============ Constants ============
@@ -106,7 +107,6 @@ contract GenericTraderProxyV1 is IGenericTraderProxyV1, GenericTraderProxyBase, 
         onlyDolomiteMarginOwner(msg.sender)
     {
         EVENT_EMITTER_REGISTRY = IEventEmitterRegistry(_eventEmitterRegistry);
-
     }
 
     // solium-disable-next-line security/no-assign-params
@@ -122,6 +122,7 @@ contract GenericTraderProxyV1 is IGenericTraderProxyV1, GenericTraderProxyBase, 
         public
         nonReentrant
         notExpired(_userConfig.deadline)
+        onlyKeyringWhiteListed()
     {
         GenericTraderProxyCache memory cache = GenericTraderProxyCache({
             dolomiteMargin: DOLOMITE_MARGIN,
@@ -213,6 +214,7 @@ contract GenericTraderProxyV1 is IGenericTraderProxyV1, GenericTraderProxyBase, 
         public
         nonReentrant
         notExpired(_userConfig.deadline)
+        onlyKeyringWhiteListed()
     {
         GenericTraderProxyCache memory cache = GenericTraderProxyCache({
             dolomiteMargin: DOLOMITE_MARGIN,
